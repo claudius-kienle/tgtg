@@ -18,6 +18,7 @@ log = logging.getLogger('tgtg')
 DEFAULT_CONFIG = {
     'item_ids': [],
     'sleep_time': 60,
+    'save_credentials_to_file': True,
     'schedule_cron': Cron('* * * * *'),
     'debug': False,
     'locale': "en_US",
@@ -131,6 +132,7 @@ class Config():
 
     item_ids: list
     sleep_time: int
+    save_credentials_to_file: bool
     schedule_cron: str
     debug: bool
     locale: str
@@ -265,6 +267,7 @@ class Config():
             self._ini_get_boolean(config, "MAIN", "debug", "debug")
             self._ini_get_array(config, "MAIN", "ItemIDs", "item_ids")
             self._ini_get_int(config, "MAIN", "SleepTime", "sleep_time")
+            self._ini_get_boolean(config, "MAIN", "SaveCredentialsToFile", "save_credentials_to_file")
             self._ini_get_cron(config, "MAIN", "ScheduleCron", "schedule_cron")
             self._ini_get_boolean(config, "MAIN", "Metrics", "metrics")
             self._ini_get_int(config, "MAIN", "MetricsPort", "metrics_port")
@@ -514,7 +517,7 @@ class Config():
         Saves TGTG Access Tokens to config.ini
         if provided or as files to token_path.
         """
-        if self.file is not None:
+        if self.file is not None and self.save_credentials_to_file:
             try:
                 config = configparser.ConfigParser()
                 config.optionxform = str

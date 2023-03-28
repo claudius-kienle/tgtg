@@ -54,7 +54,6 @@ def main() -> NoReturn:
     )
     parser.add_argument(
         "-c", "--config-file",
-        action="config_file",
         help="path to config file"
     )
     parser.add_argument(
