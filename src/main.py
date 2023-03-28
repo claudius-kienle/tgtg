@@ -53,6 +53,11 @@ def main() -> NoReturn:
         version=f"v{_get_version_info()}"
     )
     parser.add_argument(
+        "-c", "--config-file",
+        action="config_file",
+        help="path to config file"
+    )
+    parser.add_argument(
         "-d", "--debug",
         action="store_true",
         help="activate debugging mode"
@@ -102,6 +107,9 @@ def main() -> NoReturn:
         help="output as pretty json"
     )
     args = parser.parse_args()
+
+    if args.config_file:
+        config_file = args.config_file
 
     # Disable logging for json output
     if args.json or args.json_pretty:
